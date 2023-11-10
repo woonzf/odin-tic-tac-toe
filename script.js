@@ -14,7 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const mark2 = 1;
         let players;
         let turn;
+        let gameBoard = [["", "", ""],
+                         ["", "", ""],
+                         ["", "", ""]]
 
+        // Functions
         function createGame(name1, name2) {
             const player1 = new Player(name1, mark1);
             const player2 = new Player(name2, mark2);
@@ -68,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         function placePlayerMark(e) {
+            const target = e.target;
             const player = players[turn];
             const img = document.createElement("img");
         
@@ -78,8 +83,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.src = "images/close.png";
             }
         
-            e.target.append(img);
+            target.append(img);
+            updateGameBoard(target.id);
             updateTurn();
+        }
+
+        function updateGameBoard(id) {
+            const result = id / gameBoard.length;
+            let row;
+            let column;
+
+            if (id % 3 === 0) {
+                row = result - 1;
+                column = 2;
+            } else {
+                row = Math.floor(result);
+
+                const decimal0 = +result.toString().split(".")[1][0];
+                if (decimal0 === 3) {
+                    column = 0;
+                } else {
+                    column = 1;
+                }
+            }
+
+            gameBoard[row][column] = players[turn].mark;
+            console.log(gameBoard)
         }
 
         return { createGame };
