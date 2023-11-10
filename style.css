@@ -1,8 +1,8 @@
 :root {
-    --height-header: 3rem;
+    --height-header: 5rem;
     --color-dark: hsl(0, 0%, 20%);
     --height-box: 10vw;
-    --gap-grid: 0.5rem;
+    --gap-grid: 0.5vw;
     --height-grid: calc((var(--height-box) * 3) + (var(--gap-grid) * 2));
 }
 
@@ -17,7 +17,6 @@ footer {
     color: white;
     height: var(--height-header);
     width: 100%;
-    font-size: 1.5rem;
 
     display: flex;
     justify-content: center;
@@ -27,18 +26,32 @@ footer {
 }
 
 header {
+    font-size: 1.5rem;
+
     top: 0;
     z-index: 1;
 }
 
 /* footer */
 footer {
+    box-sizing: border-box;
+    padding: 0 3rem;
+
+    gap: 3rem;
     bottom: 0;
 }
 
 footer a {
-    text-decoration: none;
     color: white;
+}
+
+.attribute {
+    display: flex;
+    flex-direction: column;
+}
+
+footer > a {
+    text-decoration: none;
 
     display: flex;
     align-items: center;
@@ -46,7 +59,7 @@ footer a {
 }
 
 footer img {
-    height: calc(var(--height-header) * 0.6);
+    height: calc(var(--height-header) * 0.3);
 }
 
 footer span {
@@ -60,8 +73,10 @@ footer span {
     margin: var(--height-header) 0;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 3rem;
 }
 
 /* grid */
@@ -90,26 +105,44 @@ footer span {
     height: calc(var(--height-box) * 0.5);
 }
 
-/* attribute */
-.attribute {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* reset */
+.content > div:last-of-type {
+    height: 3rem;
 
-    position: fixed;
-    bottom: calc(var(--height-header) + 1rem);
-    width: 100%;
+    display: flex;
+    align-items: center;
 }
 
-.attribute a {
-    color: black;
+#reset {
+    height: 3rem;
+    width: 6rem;
+    background-color: var(--color-dark);
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+}
+
+#reset:hover {
+    background-color: hsl(0, 0%, 30%);
+}
+
+#reset:active {
+    height: 2.8rem;
+    width: 5.8rem;
 }
 
 /* media */
 @media (orientation:portrait) {
     :root {
         --height-box: 10vh;
-        --gap-grid: 0.3rem;
+        --gap-grid: 0.5vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .attribute {
+        font-size: 0.8rem;
     }
 }
