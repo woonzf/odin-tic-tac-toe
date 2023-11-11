@@ -12,7 +12,7 @@ const game = (function() {
 
     let players;
     let turn;
-    let gameBoard;
+    let board;
     let boxes;
     let moves = 0;
     let end = 0;
@@ -24,7 +24,7 @@ const game = (function() {
         players = [player1, player2];
         turn = Math.floor(Math.random() * players.length);
 
-        _emptyGameBoard();
+        _emptyBoard();
         boxes = _createGetBoxes();
         _addBoxListener();
         _addResetListener();
@@ -56,7 +56,7 @@ const game = (function() {
         const target = e.target;
 
         _placePlayerMark(target);
-        _updateGameBoard(target.id);
+        _updateBoard(target.id);
         moves += 1;
         _checkWinner();
         turn = +!turn;
@@ -72,8 +72,8 @@ const game = (function() {
         target.append(img);
     }
 
-    function _updateGameBoard(id) {
-        const num = id / gameBoard.length;
+    function _updateBoard(id) {
+        const num = id / board.length;
         let row;
         let column;
 
@@ -88,7 +88,7 @@ const game = (function() {
             else column = 1;
         }
 
-        gameBoard[row][column] = players[turn].mark;
+        board[row][column] = players[turn].mark;
     }
 
     function _checkWinner() {
@@ -101,16 +101,16 @@ const game = (function() {
 
     function _checkHorizontal() {
         for (let i = 0; i < 3; i++) {
-            _checkArray(gameBoard[i]);
+            _checkArray(board[i]);
         }
     }
 
     function _checkVertical() {
-        const gameBoardT = _getTranspose(gameBoard);
-        const len = gameBoardT.length;
+        const boardT = _getTranspose(board);
+        const len = boardT.length;
         
         for (let i = 0; i < len; i++) {
-            _checkArray(gameBoardT[i]);
+            _checkArray(boardT[i]);
         }
     }
 
@@ -134,8 +134,8 @@ const game = (function() {
     }
 
     function _checkDiagonal() {
-        const arr1 = [gameBoard[0][0], gameBoard[1][1], gameBoard[2][2]];
-        const arr2 = [gameBoard[2][0], gameBoard[1][1], gameBoard[0][2]];
+        const arr1 = [board[0][0], board[1][1], board[2][2]];
+        const arr2 = [board[2][0], board[1][1], board[0][2]];
 
         _checkArray(arr1);
         _checkArray(arr2);
@@ -158,7 +158,7 @@ const game = (function() {
     function _addResetListener() {
         resetBtn.addEventListener("click", () => {
             _removeMarks();
-            _emptyGameBoard();
+            _emptyBoard();
             _removeBoxListener();
             _addBoxListener();
             moves = 0;
@@ -172,8 +172,8 @@ const game = (function() {
         })
     }
 
-    function _emptyGameBoard() {
-        gameBoard = [["", "", ""],
+    function _emptyBoard() {
+        board = [["", "", ""],
                      ["", "", ""],
                      ["", "", ""]]
     }
