@@ -9,10 +9,13 @@ const game = (function() {
     const GRID_SIZE = 9;
     const MARK_1 = 0;
     const MARK_2 = 1;
+
     let players;
     let turn;
     let gameBoard;
     let boxes;
+    let moves = 0;
+    let end = 0;
 
     // Functions
     function createGame(name1, name2) {
@@ -54,8 +57,9 @@ const game = (function() {
 
         _placePlayerMark(target);
         _updateGameBoard(target.id);
+        moves += 1;
         _checkWinner();
-        turn = +!turn; // Update turn
+        turn = +!turn;
     }
 
     function _placePlayerMark(target) {
@@ -91,6 +95,8 @@ const game = (function() {
         _checkHorizontal();
         _checkVertical();
         _checkDiagonal();
+
+        if (moves === GRID_SIZE) _endGame(0);
     }
 
     function _checkHorizontal() {
@@ -140,8 +146,13 @@ const game = (function() {
     }
 
     function _endGame(n) {
-        if (n) console.log(`${players[turn].name} wins!`)
-        else console.log("Draw!");
+        if (n === 1) {
+            end = 1;
+            console.log(`${players[turn].name} wins!`)
+        }
+        else if (end === 0) console.log("Draw!");
+
+        _removeBoxListener();
     }
 
     function _addResetListener() {
@@ -150,6 +161,8 @@ const game = (function() {
             _emptyGameBoard();
             _removeBoxListener();
             _addBoxListener();
+            moves = 0;
+            end = 0;
         });
     }
 
