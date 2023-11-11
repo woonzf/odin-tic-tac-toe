@@ -7,8 +7,6 @@ const game = (function() {
 
     // Initialize variables
     const GRID_SIZE = 9;
-    const MARK_1 = 0;
-    const MARK_2 = 1;
 
     let players;
     let turn;
@@ -19,8 +17,8 @@ const game = (function() {
 
     // Functions
     function createGame(name1, name2) {
-        const player1 = new _Player(name1, MARK_1);
-        const player2 = new _Player(name2, MARK_2);
+        const player1 = new _Player(name1, 0, "images/o.png");
+        const player2 = new _Player(name2, 1, "images/close.png");
         players = [player1, player2];
         turn = Math.floor(Math.random() * players.length);
 
@@ -30,9 +28,10 @@ const game = (function() {
         _addResetListener();
     }
 
-    function _Player(name, mark) {
+    function _Player(name, mark, img) {
         this.name = name;
         this.mark = mark;
+        this.img = img;
     }
     
     function _createGetBoxes() {
@@ -63,12 +62,9 @@ const game = (function() {
     }
 
     function _placePlayerMark(target) {
-        const player = players[turn];
         const img = document.createElement("img");
     
-        if (player.mark === MARK_1) img.src = "images/o.png";
-        else if (player.mark === MARK_2) img.src = "images/close.png";
-    
+        img.src = players[turn].img;
         target.append(img);
     }
 
@@ -174,8 +170,8 @@ const game = (function() {
 
     function _emptyBoard() {
         board = [["", "", ""],
-                     ["", "", ""],
-                     ["", "", ""]]
+                 ["", "", ""],
+                 ["", "", ""]]
     }
 
     function _removeBoxListener() {
