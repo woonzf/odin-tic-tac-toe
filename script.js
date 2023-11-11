@@ -22,11 +22,10 @@ const game = (function() {
         // Determine player to start
         turn = Math.floor(Math.random() * players.length);
         
-        // Create boxes and game board
         const boxes = createBoxes();
         emptyGameBoard();
 
-        // Event Listeners
+        // Events
         addBoxListener(boxes);
         addResetListener(resetBtn, boxes);
     }
@@ -49,12 +48,18 @@ const game = (function() {
 
     function addBoxListener(boxes) {
         boxes.forEach(box => {
-            box.addEventListener("click", placePlayerMark, { once:true });
+            box.addEventListener("click", updateGame, { once:true });
         })
     }
     
-    function placePlayerMark(e) {
+    function updateGame(e) {
         const target = e.target;
+        placePlayerMark(target);
+        updateGameBoard(target.id);
+        updateTurn();
+    }
+
+    function placePlayerMark(target) {
         const player = players[turn];
         const img = document.createElement("img");
     
@@ -66,8 +71,6 @@ const game = (function() {
         }
     
         target.append(img);
-        updateGameBoard(target.id);
-        updateTurn();
     }
 
     function updateGameBoard(id) {
