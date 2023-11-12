@@ -1,41 +1,124 @@
 // Game module
-const game = (function() {
+const ticTacToe = (function() {
 
     // Cache DOM
+    const content = document.querySelector(".content");
+    const p1Div = document.querySelector("#p1 > div");
+    const p2Div = document.querySelector("#p2 > div");
+    const img1 = document.querySelector("#p1 > img");
+    const img2 = document.querySelector("#p2 > img");
     const grid = document.querySelector(".grid");
-    const resetBtn = document.querySelector("#reset");
+
+    const newGameDialog = document.querySelector("#new-game");
+    const resultDialog = document.querySelector("#result");
+    const result = resultDialog.querySelector("#display");
+
+    const replayBtn = document.querySelector("#reset");
+    const rematchBtn = document.querySelector("#rematch");
+    const newGameBtn = document.querySelector("#new-game");
+
+    // Game object
+    const game = {
+        gridSize: 9,
+        newGame: 1,
+        moves: 0,
+        end: 0,
+        updateMoves: function() {
+            this.moves += 1;
+        },
+        endGame: function() {
+            this.end = 1;
+        },
+        reset: function() {
+            this.moves = 0;
+            this.end = 0;
+        }
+    }
 
     // Initialize variables
-    const GRID_SIZE = 9;
-
     let players;
     let turn;
+    let player;
     let board;
     let boxes;
-    let moves = 0;
-    let end = 0;
 
     // Functions
-    function createGame(name1, name2) {
+    function init() {
+        const welcome = document.querySelector(".welcome");
+        const p1Name = document.querySelector("#p1-name");
+        const p2Name = document.querySelector("#p2-name");
+
+        const startBtn = document.querySelector("#start");
+        const cancelBtn = document.querySelector("#cancel");
+        const confirmBtn = document.querySelector("#confirm");
+
+        startBtn.onclick = () => {
+            newGameDialog.showModal();
+        }
+
+        cancelBtn.onclick = () => {
+            p1Name.value = "";
+            p2Name.value = "";
+            newGameDialog.close();
+        }
+
+        confirmBtn.onclick = () => {
+            welcome.style.display = "none";
+            content.style.removeProperty("display");
+            _createGame(p1Name.value, p2Name.value);
+        }
+    }
+
+    function _createGame(name1, name2) {
+        players = _createGetPlayers(name1, name2);
+        p1Div.textContent = players[0].name;
+        p2Div.textContent = players[1].name;
+        
+        img1.src = players[0].img;
+        img2.src = players[1].img;
+
+        turn = Math.floor(Math.random() * players.length);
+        player = players[turn];
+
+        if (game.newGame === 1) {
+            _emptyBoard();
+            boxes = _createGetBoxes();
+
+            //Events
+            _addBoxListener();
+            replayBtn.onclick = _resetGame;
+            rematchBtn.onclick = () => {
+                _resetGame();
+                resultDialog.close();
+            }
+            newGameBtn.onclick = () => {
+                resultDialog.close();
+                newGameDialog.showModal();
+                game.newGame = 0;
+            }
+        } else _resetGame();
+    }
+
+    function _createGetPlayers(name1, name2) {
         const player1 = new _Player(name1, 0, "images/o.png");
         const player2 = new _Player(name2, 1, "images/close.png");
-        players = [player1, player2];
-        turn = Math.floor(Math.random() * players.length);
 
-        _emptyBoard();
-        boxes = _createGetBoxes();
-        _addBoxListener();
-        _addResetListener();
+        return [player1, player2];
     }
 
     function _Player(name, mark, img) {
         this.name = name;
         this.mark = mark;
         this.img = img;
+        this.placeMark = function(target) {
+            const img = document.createElement("img");
+            img.src = this.img;
+            target.append(img);
+        }
     }
     
     function _createGetBoxes() {
-        for (let i = 0; i < GRID_SIZE; i++) {
+        for (let i = 0; i < game.gridSize; i++) {
             const box = document.createElement("div");
             box.classList.add("box");
             box.id = i + 1;
@@ -54,18 +137,11 @@ const game = (function() {
     function _updateGame(e) {
         const target = e.target;
 
-        _placePlayerMark(target);
+        player.placeMark(target);
         _updateBoard(target.id);
-        moves += 1;
+        game.updateMoves();
         _checkWinner();
-        turn = +!turn;
-    }
-
-    function _placePlayerMark(target) {
-        const img = document.createElement("img");
-    
-        img.src = players[turn].img;
-        target.append(img);
+        _updatePlayer();
     }
 
     function _updateBoard(id) {
@@ -84,7 +160,7 @@ const game = (function() {
             else column = 1;
         }
 
-        board[row][column] = players[turn].mark;
+        board[row][column] = player.mark;
     }
 
     function _checkWinner() {
@@ -92,7 +168,7 @@ const game = (function() {
         _checkVertical();
         _checkDiagonal();
 
-        if (moves === GRID_SIZE) _endGame(0);
+        if (game.moves === game.gridSize) _endGame(0);
     }
 
     function _checkHorizontal() {
@@ -141,25 +217,32 @@ const game = (function() {
         if (arr.every(el => el === turn)) _endGame(1)
     }
 
+    function _updatePlayer() {
+        turn = +!turn;
+        player = players[turn];
+    }
+
     function _endGame(n) {
         if (n === 1) {
-            end = 1;
-            console.log(`${players[turn].name} wins!`)
+            game.endGame();
+            _displayResult(`${player.name} wins!`);
         }
-        else if (end === 0) console.log("Draw!");
+        else if (game.end === 0) _displayResult("Draw!");
 
         _removeBoxListener();
     }
 
-    function _addResetListener() {
-        resetBtn.addEventListener("click", () => {
-            _removeMarks();
-            _emptyBoard();
-            _removeBoxListener();
-            _addBoxListener();
-            moves = 0;
-            end = 0;
-        });
+    function _displayResult(text) {
+        result.textContent = text;
+        resultDialog.showModal();
+    }
+
+    function _resetGame() {
+        _removeMarks();
+        _emptyBoard();
+        _removeBoxListener();
+        _addBoxListener();
+        game.reset();
     }
 
     function _removeMarks() {
@@ -180,10 +263,8 @@ const game = (function() {
         })
     }
 
-    return { createGame };
+    return { init };
 })()
 
 // Create game
-const playerName1 = "Player 1";
-const playerName2 = "Player 2";
-game.createGame(playerName1, playerName2);
+ticTacToe.init();
