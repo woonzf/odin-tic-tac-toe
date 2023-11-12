@@ -1,9 +1,10 @@
 :root {
-    --height-header: 5rem;
     --color-dark: hsl(0, 0%, 20%);
-    --height-box: 10vw;
+    --height-header: 5rem;
+    --height-content: calc(100vh - var(--height-header));
     --gap-grid: 0.5vw;
     --height-grid: calc((var(--height-box) * 3) + (var(--gap-grid) * 2));
+    --height-box: 7vw;
 }
 
 body {
@@ -16,20 +17,14 @@ footer {
     background-color: var(--color-dark);
     color: white;
     height: var(--height-header);
-    width: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    position: fixed;
 }
 
 header {
     font-size: 1.5rem;
-
-    top: 0;
-    z-index: 1;
 }
 
 /* footer */
@@ -38,7 +33,10 @@ footer {
     padding: 0 3rem;
 
     gap: 3rem;
+
+    position: fixed;
     bottom: 0;
+    width: 100%;
 }
 
 footer a {
@@ -66,17 +64,56 @@ footer span {
     padding-top: 0.3rem;
 }
 
+/* welcome */
+.welcome {
+    height: var(--height-content);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+
+.welcome div {
+    font-size: 3rem;
+}
+
 /* content */
 .content {
-    height: calc(100vh - (var(--height-header) * 2));
+    box-sizing: border-box;
+    height: var(--height-content);
     width: 100%;
-    margin: var(--height-header) 0;
+    padding-bottom: var(--height-header);
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 3rem;
+}
+
+.content > div:first-of-type {
+    font-size: 1.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+#p1,
+#p2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#p1 img,
+#p2 img {
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 /* grid */
@@ -105,15 +142,77 @@ footer span {
     height: calc(var(--height-box) * 0.5);
 }
 
-/* reset */
-.content > div:last-of-type {
-    height: 3rem;
+/* dialog */
+dialog {
+    border: none;
+    box-shadow: 0 0 1rem var(--color-dark);
+    border-radius: 1rem;
+}
+
+::backdrop {
+    background-color: black;
+    opacity: 50%;
+}
+
+#new-game > div:first-of-type {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+#new-game form {
+    padding: 0 1rem;
 
     display: flex;
+    flex-direction: column;
+}
+
+#new-game form div:first-of-type {
+    display: flex;
+    flex-direction: column;
+}
+
+#new-game form div:last-of-type {
+    margin-top: 2rem;
+
+    display: flex;
+    gap: 1rem;
+}
+
+label[for="p2-name"] {
+    margin-top: 1rem;
+}
+
+input {
+    line-height: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-dark);
+    text-indent: 0.5rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+#result > div {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-#reset {
+#result > div > div:first-of-type {
+    margin: 3rem 0;
+    font-size: 1.5rem;
+}
+
+#result > div > div:last-of-type {
+    display: flex;
+    gap: 1rem;
+}
+
+/* button */
+button {
     height: 3rem;
     width: 6rem;
     background-color: var(--color-dark);
@@ -124,11 +223,11 @@ footer span {
     letter-spacing: 0.1rem;
 }
 
-#reset:hover {
+button:hover {
     background-color: hsl(0, 0%, 30%);
 }
 
-#reset:active {
+button:active {
     height: 2.8rem;
     width: 5.8rem;
 }
