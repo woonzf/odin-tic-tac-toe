@@ -9,12 +9,49 @@
     </head>
     <body>
         <header>Tic Tac Toe</header>
-        <div class="content">
-            <div class="grid"></div>
-            <div>
-                <button id="reset">RESET</button>
-            </div>
+        <div class="welcome">
+            <div>Welcome!</div>
+            <button id="start">START GAME</button>
         </div>
+        <div class="content" style="display: none;">
+            <div>
+                <div id="p1">
+                    <div></div>
+                    <img>
+                </div>
+                <div><b><i>VS</i></b></div>
+                <div id="p2">
+                    <div></div>
+                    <img>
+                </div>
+            </div>
+            <div class="grid"></div>
+            <button id="reset">REPLAY</button>
+        </div>
+        <dialog id="new-game">
+            <div>NEW GAME</div>
+            <form method="dialog">
+                <div>
+                    <label for="p1-name">Player 1 Name</label>
+                    <input type="text" id="p1-name" name="p1-name">
+                    <label for="p2-name">Player 2 Name</label>
+                    <input type="text" id="p2-name" name="p2-name">
+                </div>
+                <div>
+                    <button id="confirm">CONFIRM</button>
+                    <button id="cancel" autofocus>CANCEL</button>
+                </div>
+            </form>
+        </dialog>
+        <dialog id="result">
+            <div>
+                <div id="display"></div>
+                <div>
+                    <button id="rematch" autofocus>REMATCH</button>
+                    <button id="new-game">NEW GAME</button>
+                </div>
+            </div>
+        </dialog>
         <footer>
             <div class="attribute">
                 <div>Attribution:</div>
