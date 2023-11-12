@@ -9,11 +9,11 @@ const ticTacToe = (function() {
     const img2 = document.querySelector("#p2 > img");
     const grid = document.querySelector(".grid");
 
-    const newGameDialog = document.querySelector("#new-game");
-    const resultDialog = document.querySelector("#result");
+    const newGameDialog = document.querySelector("#dialog-new-game");
+    const resultDialog = document.querySelector("#dialog-result");
     const result = resultDialog.querySelector("#display");
 
-    const replayBtn = document.querySelector("#reset");
+    const resetBtn = document.querySelector("#reset");
     const rematchBtn = document.querySelector("#rematch");
     const newGameBtn = document.querySelector("#new-game");
 
@@ -86,7 +86,7 @@ const ticTacToe = (function() {
 
             //Events
             _addBoxListener();
-            replayBtn.onclick = _resetGame;
+            resetBtn.onclick = _resetGame;
             rematchBtn.onclick = () => {
                 _resetGame();
                 resultDialog.close();
