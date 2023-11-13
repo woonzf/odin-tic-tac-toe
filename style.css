@@ -159,6 +159,7 @@ footer span {
 
 /* dialog */
 dialog {
+    background-color: hsl(0, 0%, 100%, 0.8);
     border: none;
     box-shadow: 0 0 1rem var(--color-dark);
     border-radius: 1rem;
