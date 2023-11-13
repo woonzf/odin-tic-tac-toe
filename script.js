@@ -85,9 +85,8 @@ const ticTacToe = (function() {
         img1.src = players[0].img;
         img2.src = players[1].img;
 
-        turn = Math.floor(Math.random() * players.length);
-        _updatePlayer();
-
+        _randomizePlayer();
+        
         if (game.newGame === 1) {
             _emptyBoard();
             boxes = _createGetBoxes();
@@ -123,6 +122,12 @@ const ticTacToe = (function() {
             img.src = this.img;
             target.append(img);
         }
+    }
+
+    function _randomizePlayer() {
+        turn = Math.floor(Math.random() * players.length);
+        _updatePlayer();
+
     }
 
     function _updatePlayer() {
@@ -238,7 +243,7 @@ const ticTacToe = (function() {
     }
 
     function _checkArray(arr) {
-        if (arr.every(el => el === turn)) _endGame(1)
+        if (arr.every(el => el === turn)) _endGame(1);
     }
 
     function _endGame(n) {
@@ -262,6 +267,7 @@ const ticTacToe = (function() {
         _removeBoxListener();
         _addBoxListener();
         game.reset();
+        _randomizePlayer();
     }
 
     function _removeMarks() {
