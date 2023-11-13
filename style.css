@@ -91,12 +91,12 @@ footer span {
     grid-template-rows: 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
 }
 
 .vs {
     height: fit-content;
-    font-size: 1.5rem;
+    font-size: calc(var(--height-arrow) * 0.6);
     text-align: center;
     padding: 0 2rem;
 
@@ -107,6 +107,11 @@ footer span {
 
 .turn {
     height: var(--height-arrow);
+}
+
+.mark {
+    height: calc(var(--height-arrow) * 0.6);
+    margin-top: 0.5rem;
 }
 
 #vs {
@@ -122,11 +127,6 @@ footer span {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-}
-
-.mark {
-    height: 1.5rem;
-    width: 1.5rem;
 }
 
 #reset {
@@ -262,6 +262,10 @@ button:active {
 }
 
 @media (max-width: 480px) {
+    .vs {
+        font-size: calc(var(--height-arrow) * 0.5);
+    }
+
     .attribute {
         font-size: 0.8rem;
     }

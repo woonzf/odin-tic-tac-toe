@@ -127,7 +127,6 @@ const ticTacToe = (function() {
     function _randomizePlayer() {
         turn = Math.floor(Math.random() * players.length);
         _updatePlayer();
-
     }
 
     function _updatePlayer() {
