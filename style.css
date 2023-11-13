@@ -5,7 +5,6 @@
     --height-arrow: 3rem;
     --height-box: 7vw;
     --gap-grid: 0.5vw;
-    --height-grid: calc((var(--height-box) * 3) + (var(--gap-grid) * 2));
 }
 
 body {
@@ -84,7 +83,6 @@ footer span {
 .content {
     box-sizing: border-box;
     height: var(--height-content);
-    width: 100%;
     padding-bottom: var(--height-header);
 
     display: grid;
@@ -95,11 +93,10 @@ footer span {
 }
 
 .vs {
-    height: fit-content;
     width: calc(var(--height-box) * 3);
     font-size: calc(var(--height-arrow) * 0.6);
     text-align: center;
-    padding: 0 2rem;
+    padding: 3rem 2rem 0 2rem;
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -136,9 +133,6 @@ footer span {
 
 /* grid */
 .grid {
-    height: var(--height-grid);
-    width: var(--height-grid);
-
     display: grid;
     grid-template-columns: repeat(3, var(--height-box));
     grid-template-rows: repeat(3, var(--height-box));
