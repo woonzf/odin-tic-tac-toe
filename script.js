@@ -129,11 +129,11 @@ const ticTacToe = (function() {
         player = players[turn];
         
         if (turn === 0) {
-            p1Turn.style.opacity = 100;
+            p1Turn.style.opacity = 1;
             p2Turn.style.opacity = 0;
         } else {
             p1Turn.style.opacity = 0;
-            p2Turn.style.opacity = 100;
+            p2Turn.style.opacity = 1;
         }
     }
     
