@@ -65,9 +65,15 @@ const ticTacToe = (function() {
         }
 
         confirmBtn.onclick = () => {
-            welcome.style.display = "none";
-            content.style.removeProperty("display");
-            _createGame(p1Name.value, p2Name.value);
+            const name1 = p1Name.value;
+            const name2 = p2Name.value;
+
+            if (name1 !== "" && name2 !== "") {
+                welcome.style.display = "none";
+                content.style.removeProperty("display");
+                _createGame(name1, name2);
+                newGameDialog.close();
+            }
         }
     }
 
