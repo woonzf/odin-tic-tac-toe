@@ -2,9 +2,10 @@
     --color-dark: hsl(0, 0%, 20%);
     --height-header: 5rem;
     --height-content: calc(100vh - var(--height-header));
+    --height-arrow: 3rem;
+    --height-box: 7vw;
     --gap-grid: 0.5vw;
     --height-grid: calc((var(--height-box) * 3) + (var(--gap-grid) * 2));
-    --height-box: 7vw;
 }
 
 body {
@@ -86,20 +87,31 @@ footer span {
     width: 100%;
     padding-bottom: var(--height-header);
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-items: center;
     align-items: center;
     gap: 3rem;
 }
 
-.content > div:first-of-type {
+.vs {
+    height: fit-content;
     font-size: 1.5rem;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-self: flex-end;
+}
+
+.turn {
+    height: var(--height-arrow);
+}
+
+#vs {
+    padding-top: var(--height-arrow);
+
+    justify-self: center;
+    align-self: center;
 }
 
 #p1,
@@ -110,10 +122,13 @@ footer span {
     gap: 0.5rem;
 }
 
-#p1 img,
-#p2 img {
+.mark {
     height: 1.5rem;
     width: 1.5rem;
+}
+
+#reset {
+    align-self: flex-start;
 }
 
 /* grid */

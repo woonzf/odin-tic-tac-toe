@@ -5,8 +5,10 @@ const ticTacToe = (function() {
     const content = document.querySelector(".content");
     const p1Div = document.querySelector("#p1 > div");
     const p2Div = document.querySelector("#p2 > div");
-    const img1 = document.querySelector("#p1 > img");
-    const img2 = document.querySelector("#p2 > img");
+    const img1 = document.querySelector("#p1 .mark");
+    const img2 = document.querySelector("#p2 .mark");
+    const p1Turn = document.querySelector("#p1 .turn");
+    const p2Turn = document.querySelector("#p2 .turn");
     const grid = document.querySelector(".grid");
 
     const newGameDialog = document.querySelector("#dialog-new-game");
@@ -71,14 +73,14 @@ const ticTacToe = (function() {
 
     function _createGame(name1, name2) {
         players = _createGetPlayers(name1, name2);
+        
         p1Div.textContent = players[0].name;
         p2Div.textContent = players[1].name;
-        
         img1.src = players[0].img;
         img2.src = players[1].img;
 
         turn = Math.floor(Math.random() * players.length);
-        player = players[turn];
+        _updatePlayer();
 
         if (game.newGame === 1) {
             _emptyBoard();
@@ -116,6 +118,18 @@ const ticTacToe = (function() {
             target.append(img);
         }
     }
+
+    function _updatePlayer() {
+        player = players[turn];
+        
+        if (turn === 0) {
+            p1Turn.style.opacity = 100;
+            p2Turn.style.opacity = 0;
+        } else {
+            p1Turn.style.opacity = 0;
+            p2Turn.style.opacity = 100;
+        }
+    }
     
     function _createGetBoxes() {
         for (let i = 0; i < game.gridSize; i++) {
@@ -141,7 +155,11 @@ const ticTacToe = (function() {
         _updateBoard(target.id);
         game.updateMoves();
         _checkWinner();
-        _updatePlayer();
+
+        if (game.end !== 1 && game.moves !== 9) {
+            turn = +!turn;
+            _updatePlayer();
+        }
     }
 
     function _updateBoard(id) {
@@ -215,11 +233,6 @@ const ticTacToe = (function() {
 
     function _checkArray(arr) {
         if (arr.every(el => el === turn)) _endGame(1)
-    }
-
-    function _updatePlayer() {
-        turn = +!turn;
-        player = players[turn];
     }
 
     function _endGame(n) {
