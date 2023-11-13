@@ -91,11 +91,12 @@ footer span {
     grid-template-rows: 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .vs {
     height: fit-content;
+    width: calc(var(--height-box) * 3);
     font-size: calc(var(--height-arrow) * 0.6);
     text-align: center;
     padding: 0 2rem;
@@ -115,7 +116,7 @@ footer span {
 }
 
 #vs {
-    padding: var(--height-arrow) 1rem 0 1rem;
+    padding-top: var(--height-arrow);
 
     justify-self: center;
     align-self: center;
