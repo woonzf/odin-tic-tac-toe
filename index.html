@@ -8,13 +8,13 @@
         <script src="script.js" defer></script>
     </head>
     <body>
-        <header>Tic Tac Toe</header>
+        <div class="header">Tic Tac Toe</div>
         <div class="welcome">
             <div>Welcome!</div>
             <button id="start">START GAME</button>
         </div>
         <div class="content" style="display: none;">
-            <div class="vs">
+            <div class="content-top">
                 <div id="p1">
                     <img class="turn" src="images/arrow-down-bold-outline-custom.png" alt="Arrow Down Icon">
                     <div></div>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="grid"></div>
-            <button id="reset">RESET</button>
+            <div class="content-bottom"><button id="reset">RESET</button></div>
         </div>
         <dialog id="dialog-new-game">
             <div>NEW GAME</div>
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </dialog>
-        <footer>
+        <div class="footer">
             <div class="attribute">
                 <div>Attribution:</div>
                 <a href="https://www.flaticon.com/free-icons/o" title="o icons">O icons created by Freepik - Flaticon</a>
@@ -64,6 +64,6 @@
                 <img src="images/github-mark-white.png" alt="GitHub Invertocat Logo">
                 <span>ZF</span>
             </a>
-        </footer>
+        </div>
     </body>
 </html>

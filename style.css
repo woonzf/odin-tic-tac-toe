@@ -1,10 +1,12 @@
 :root {
     --color-dark: hsl(0, 0%, 20%);
-    --height-header: 5rem;
-    --height-content: calc(100vh - var(--height-header));
-    --height-arrow: 3rem;
-    --height-box: 7vw;
-    --gap-grid: 0.5vw;
+    --height-header: 10vh;
+    --height-content: calc(100vh - var(--height-header) * 2);
+    --height-content-not-grid: calc(var(--height-content) / 3);
+    --height-content-grid: calc(var(--height-content) / 3);
+    --border-box: 1px;
+    --height-box: calc(var(--height-content-grid) / 3 - var(--border-box));
+    --height-arrow: 5vh;
 }
 
 body {
@@ -12,8 +14,8 @@ body {
 }
 
 /* header, footer */
-header,
-footer {
+.header,
+.footer {
     background-color: var(--color-dark);
     color: white;
     height: var(--height-header);
@@ -23,32 +25,26 @@ footer {
     align-items: center;
 }
 
-header {
+.header {
     font-size: 1.5rem;
 }
 
 /* footer */
-footer {
-    box-sizing: border-box;
+.footer {
     padding: 0 3rem;
-
     gap: 3rem;
-
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
 
-footer a {
-    color: white;
-}
-
-.attribute {
+.footer .attribute {
     display: flex;
     flex-direction: column;
 }
 
-footer > a {
+.footer a {
+    color: white;
+}
+
+.footer > a {
     text-decoration: none;
 
     display: flex;
@@ -56,11 +52,11 @@ footer > a {
     gap: 0.5rem;
 }
 
-footer img {
+.footer img {
     height: calc(var(--height-header) * 0.3);
 }
 
-footer span {
+.footer span {
     padding-top: 0.3rem;
 }
 
@@ -72,7 +68,7 @@ footer span {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5rem;
+    gap: 3rem;
 }
 
 .welcome div {
@@ -83,28 +79,41 @@ footer span {
 .content {
     box-sizing: border-box;
     height: var(--height-content);
-    padding-bottom: var(--height-header);
+    padding: 1rem 0;
 
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 2vh;
 }
 
-.vs {
-    width: calc(var(--height-box) * 3);
-    font-size: calc(var(--height-arrow) * 0.6);
-    text-align: center;
-    padding: 3rem 2rem 0 2rem;
+.content-top,
+.content-bottom {
+    box-sizing: border-box;
+    height: var(--height-content-not-grid);
+}
 
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-self: flex-end;
+.content-top {
+    text-align: center;
+    padding: 0 1rem;
+
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
 }
 
 .turn {
     height: var(--height-arrow);
+}
+
+#p1,
+#p2,
+#vs {
+    font-size: 2vh;
+}
+
+#vs {
+    padding-bottom: calc(var(--height-arrow) * 0.6);
 }
 
 .mark {
@@ -112,38 +121,20 @@ footer span {
     margin-top: 0.5rem;
 }
 
-#vs {
-    padding-top: var(--height-arrow);
-
-    justify-self: center;
-    align-self: center;
-}
-
-#p1,
-#p2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-#reset {
-    align-self: flex-start;
-}
-
 /* grid */
 .grid {
+    height: var(--height-content-grid);
+
     display: grid;
     grid-template-columns: repeat(3, var(--height-box));
     grid-template-rows: repeat(3, var(--height-box));
-    gap: var(--gap-grid);
+    gap: 0.2rem;
 }
 
 /* box */
 .box {
-    border: 1px solid var(--color-dark);
+    border: var(--border-box) solid var(--color-dark);
     border-radius: 0.5rem;
-    font-size: calc(var(--height-box) * 0.5);
 
     display: flex;
     justify-content: center;
@@ -249,18 +240,7 @@ button:active {
 }
 
 /* media */
-@media (orientation:portrait) {
-    :root {
-        --height-box: 10vh;
-        --gap-grid: 0.5vh;
-    }
-}
-
 @media (max-width: 480px) {
-    .vs {
-        font-size: calc(var(--height-arrow) * 0.5);
-    }
-
     .attribute {
         font-size: 0.8rem;
     }
