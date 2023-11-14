@@ -79,7 +79,6 @@ body {
 .content {
     box-sizing: border-box;
     height: var(--height-content);
-    padding: 1rem 0;
 
     display: flex;
     flex-direction: column;
@@ -94,7 +93,6 @@ body {
 }
 
 .content-top {
-    text-align: center;
     padding: 0 1rem;
 
     display: flex;
@@ -107,18 +105,37 @@ body {
 }
 
 #p1,
+#p2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#p1,
 #p2,
 #vs {
-    font-size: 2vh;
+    font-size: calc(var(--height-arrow) * 0.5);
+}
+
+#p1 > div,
+#p2 > div {
+    height: calc(var(--height-arrow) * 1.1);
+    width: calc(10vw + 5rem);
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #vs {
-    padding-bottom: calc(var(--height-arrow) * 0.6);
+    padding-bottom: calc(var(--height-arrow) * 0.5);
 }
 
 .mark {
     height: calc(var(--height-arrow) * 0.6);
-    margin-top: 0.5rem;
+    margin-top: 0.4rem;
 }
 
 /* grid */
